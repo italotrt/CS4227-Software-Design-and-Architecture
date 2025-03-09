@@ -1,0 +1,57 @@
+[
+    {
+      "name": "John Doe",
+      "email": "johndoe@gmail.com",
+      "role": "Admin",
+      "status": "Active"
+    },
+    {
+      "name": "Anne McFlurry",
+      "email": "anne@mcdonalds.com",
+      "role": "User",
+      "status": "Active"
+    },
+    {
+      "name": "Salim Saay",
+      "email": "salim_lec@ul.ie",
+      "role": "Admin",
+      "status": "Active"
+    },
+    {
+      "name": "Kevin Hough",
+      "email": "trouble.maker@gmail.com",
+      "role": "User",
+      "status": "Banned"
+    },
+    {
+      "name": "Keven Clay",
+      "email": "keven@gmail.com",
+      "role": "User",
+      "status": "Active"
+    },
+    {
+      "name": "Ricardo Huffman",
+      "email": "huffman89@gmail.com",
+      "role": "Admin",
+      "status": "Active"
+    },
+    {
+      "name": "Joanne Wolf",
+      "email": "joanne@gmail.com",
+      "role": "User",
+      "status": "Active"
+    },
+    {
+      "name": "Becky Hobbs",
+      "email": "becky.decky342@gmail.com",
+      "role": "User",
+      "status": "Active"
+    },
+    {
+      "name": "Seymour Costa",
+      "email": "seymour32@gmail.com",
+      "role": "User",
+      "status": "Banned"
+    }
+  ]
+  
