@@ -1,11 +1,11 @@
-import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, TableFooter, TablePagination, Menu, MenuItem } from '@mui/material';
-import TuneIcon from '@mui/icons-material/Tune';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers } from '../usersSlice';
+import { RootState, AppDispatch } from '../store';
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableFooter, TablePagination, Typography } from '@mui/material';
 
 interface User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     role: string;
@@ -13,14 +13,16 @@ interface User {
 }
 
 export default function AdminTable() {
-    const [users, setUsers] = useState<User[]>([]);
+    const dispatch = useDispatch<AppDispatch>();
+    const users = useSelector((state: RootState) => state.users.users);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const navigate = useNavigate();
 
-    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, [dispatch]);
+
+    const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         setPage(newPage);
     };
 
@@ -29,79 +31,12 @@ export default function AdminTable() {
         setPage(0);
     };
 
-    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, user: User) => {
-        setAnchorEl(event.currentTarget);
-        setSelectedUser(user);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        setSelectedUser(null);
-    };
-
-    const handleViewProfile = () => {
-        if (selectedUser) {
-            navigate(`/profile/${selectedUser.id}`);
-        }
-        handleMenuClose();
-    };
-
-    const handleMessage = () => {
-        if (selectedUser) {
-            navigate(`/message/${selectedUser.id}`);
-        }
-        handleMenuClose();
-    };
-
-    const handleEditUser = () => {
-        if (selectedUser) {
-            navigate(`/edit/${selectedUser.id}`, { state: { user: selectedUser } });
-        }
-        handleMenuClose();
-    };
-
-    const handleBanUser = () => {
-        if (selectedUser) {
-            setUsers(users.map(user => 
-                user.id === selectedUser.id ? { ...user, status: 'Banned' } : user
-            ));
-        }
-        handleMenuClose();
-    };
-
-    const handleDeleteUser = () => {
-        if (selectedUser) {
-            setUsers(users.filter(user => user.id !== selectedUser.id));
-        }
-        handleMenuClose();
-    };
-
-    useEffect(() => {
-        axios.get("./users.json")
-            .then(response => {
-                console.log("Fetched data:", response.data);
-
-                if (Array.isArray(response.data)) {
-                    setUsers(response.data);
-                } else if (response.data && Array.isArray(response.data.users)) {
-                    setUsers(response.data.users);
-                } else {
-                    console.error("Unexpected response format:", response.data);
-                    setUsers([]);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching user data:", error);
-                setUsers([]);
-            });
-    }, []);
-
     const paginatedUsers = users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    
+
     return (
-        <TableContainer sx={{ marginTop: '80px', display: 'flex'}}>
+        <TableContainer sx={{ marginTop: '80px', display: 'flex' }}>
             <Table>
-                <TableHead style={{ backgroundColor: '#fa5258'}}>
+                <TableHead style={{ backgroundColor: '#f7232a' }}>
                     <TableRow>
                         <TableCell>
                             <Typography fontWeight="bold">Username</Typography>
@@ -125,27 +60,13 @@ export default function AdminTable() {
                         <TableRow key={index}>
                             <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit' }}>{user.name}</TableCell>
                             <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit' }}>{user.email}</TableCell>
-                            <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit', color: user.role === "Admin" ? "red" : "black" }}>
+                            <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit', color: user.role === 'Admin' ? 'red' : 'black' }}>
                                 {user.role}
                             </TableCell>
-                            <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit', color: user.status === "Banned" ? "red" : "green" }}>
+                            <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit', color: user.status === 'Banned' ? 'red' : 'green' }}>
                                 {user.status}
                             </TableCell>
                             <TableCell sx={{ backgroundColor: user.status === 'Banned' ? 'lightgrey' : 'inherit' }}>
-                                <IconButton aria-label="edit" onClick={(event) => handleMenuOpen(event, user)}>
-                                    <TuneIcon/>
-                                </IconButton>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleMenuClose}
-                                >
-                                    <MenuItem onClick={handleViewProfile}>View Profile</MenuItem>
-                                    <MenuItem onClick={handleMessage}>Message</MenuItem>
-                                    <MenuItem onClick={handleEditUser}>Edit</MenuItem>
-                                    <MenuItem onClick={handleBanUser}>Ban</MenuItem>
-                                    <MenuItem onClick={handleDeleteUser}>Delete</MenuItem>
-                                </Menu>
                             </TableCell>
                         </TableRow>
                     ))}

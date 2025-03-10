@@ -1,16 +1,20 @@
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Box, Button, TextField, Typography } from "@mui/material";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloseIcon from '@mui/icons-material/Close';
 import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
-import AdminAppBar from "./AdminAppBar"
+import AdminAppBar from "./AdminAppBar";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../usersSlice';
+import { AppDispatch } from '../store';
 
 export default function AdminEditUser() {
     const location = useLocation();
     const navigate = useNavigate();
     const user = location.state?.user;
+    const dispatch = useDispatch<AppDispatch>();
 
     const [name, setName] = useState(user?.name || '');
     const [role, setRole] = useState(user?.role || 'User');
@@ -18,8 +22,7 @@ export default function AdminEditUser() {
 
     const handleSave = () => {
         const updatedUser = { ...user, name, role, status };
-        console.log('Updated User:', updatedUser);
-
+        dispatch(updateUser(updatedUser));
         navigate('/admin');
     };
 
