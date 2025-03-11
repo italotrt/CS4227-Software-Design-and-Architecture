@@ -9,11 +9,19 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../usersSlice';
 import { AppDispatch } from '../store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 export default function AdminEditUser() {
     const location = useLocation();
     const navigate = useNavigate();
-    const user = location.state?.user;
+    const userId = location.state?.user?.id;
+
+    // Get user from Redux instead of relying on location.state
+    const user = useSelector((state: RootState) => 
+        state.users.users.find((u) => u.id === userId)
+    ) || location.state?.user;
+
     const dispatch = useDispatch<AppDispatch>();
 
     const [name, setName] = useState(user?.name || '');
@@ -21,9 +29,25 @@ export default function AdminEditUser() {
     const [status, setStatus] = useState(user?.status || 'Active');
 
     const handleSave = () => {
-        const updatedUser = { ...user, name, role, status };
-        dispatch(updateUser(updatedUser));
-        navigate('/admin');
+        if (!user || !user.id) {
+            console.error("Error: User ID is missing");
+            return;
+        }
+    
+        const updatedUser = {
+            id: user.id,  
+            name,
+            email: user.email,  
+            role,
+            status,
+        };
+    
+        dispatch(updateUser(updatedUser))
+            .then(() => {
+                console.log("User updated successfully in Firestore");
+                navigate('/admin');
+            })
+            .catch((error) => console.error("Error updating user:", error));
     };
 
     return (
