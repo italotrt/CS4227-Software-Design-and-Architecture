@@ -45,7 +45,7 @@ export default function AdminEditUser() {
         dispatch(updateUser(updatedUser))
             .then(() => {
                 console.log("User updated successfully in Firestore");
-                navigate('/admin');
+                navigate('/CS4227-group-project/admin');
             })
             .catch((error) => console.error("Error updating user:", error));
     };
@@ -120,7 +120,7 @@ export default function AdminEditUser() {
                     <Button variant="contained" color="success" startIcon={<SaveAltIcon />} onClick={handleSave}>
                         Save
                     </Button>
-                    <Button variant="contained" color="error" startIcon={<CloseIcon />} onClick={() => navigate('/admin')}>
+                    <Button variant="contained" color="error" startIcon={<CloseIcon />} onClick={() => navigate('/CS4227-group-project/admin')}>
                         Cancel
                     </Button>
                 </Box>

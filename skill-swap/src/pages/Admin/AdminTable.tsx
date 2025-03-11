@@ -48,21 +48,21 @@ export default function AdminTable() {
 
     const handleViewProfile = () => {
         if (selectedUser) {
-            navigate(`/profile/${selectedUser.id}`);
+            navigate(`/CS4227-group-project/profile/${selectedUser.id}`);
         }
         handleMenuClose();
     };
 
     const handleMessage = () => {
         if (selectedUser) {
-            navigate(`/message/${selectedUser.id}`);
+            navigate(`/CS4227-group-project/message/${selectedUser.id}`);
         }
         handleMenuClose();
     };
 
     const handleEditUser = () => {
         if (selectedUser) {
-            navigate(`/edit/${selectedUser.id}`, { state: { user: selectedUser } });
+            navigate(`/CS4227-group-project/edit/${selectedUser.id}`, { state: { user: selectedUser } });
         }
         handleMenuClose();
     };
