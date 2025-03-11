@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/admin" />} />
+          <Route path="/CS4227-group-project/" element={<Navigate to="/admin" />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/profile/:id" element={<App />} />
           <Route path="/message/:id" element={<App />} />
