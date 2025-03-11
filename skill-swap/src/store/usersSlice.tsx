@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-import { db } from './firebaseConfig';
+import { db } from '../services/firebaseConfig';
 
 interface User {
   id: string;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers, updateUser, deleteUser } from '../usersSlice';
-import { RootState, AppDispatch } from '../store';
+import { fetchUsers, updateUser, deleteUser } from '../../store/usersSlice';
+import { RootState, AppDispatch } from  '../../store/store';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableFooter, TablePagination, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
 import { useNavigate } from 'react-router-dom';

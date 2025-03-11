@@ -7,10 +7,10 @@ import AdminAppBar from "./AdminAppBar";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../usersSlice';
-import { AppDispatch } from '../store';
+import { updateUser } from '../../store/usersSlice';
+import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '../../store/store';
 
 export default function AdminEditUser() {
     const location = useLocation();

@@ -2,10 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import AdminPage from './Admin/AdminPage';
+import store from './store/store';
+import AdminPage from './pages/Admin/AdminPage';
 import App from './App';
-import AdminEditUser from './Admin/AdminEditUser';
+import AdminEditUser from './pages/Admin/AdminEditUser';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
