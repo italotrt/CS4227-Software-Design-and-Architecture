@@ -30,13 +30,11 @@ jobs:
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION_KEY: ${{ secrets.SONAR_ORGANIZATION_KEY }}
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=italotrt_CS4227-group-project \
-            -Dsonar.organization=italotrt \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORGANIZATION_KEY \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.language=ts \
-            -Dsonar.sources=src \
-            -Dsonar.exclusions=**/node_modules/**,**/*.test.ts \
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.login=$SONAR_TOKEN
