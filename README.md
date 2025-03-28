@@ -11,7 +11,7 @@ Skill Swap is a project to help all types of people connect and share the specia
 
 ### Assingment Objective:
 
-Developing a high-level architecture for a Research Management System (RMS) is the main objective of this phase.
+Developing a high-level architecture for a project of your choice is the main objective of this phase.
 
 ### Deliverables:
 
