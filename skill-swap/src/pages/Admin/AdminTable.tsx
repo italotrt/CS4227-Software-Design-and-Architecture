@@ -48,21 +48,21 @@ export default function AdminTable() {
 
     const handleViewProfile = () => {
         if (selectedUser) {
-            navigate(`/CS4227-group-project/profile/${selectedUser.id}`);
+            navigate(`/CS4227-Software-Design-and-Architecture/profile/${selectedUser.id}`);
         }
         handleMenuClose();
     };
 
     const handleMessage = () => {
         if (selectedUser) {
-            navigate(`/CS4227-group-project/message/${selectedUser.id}`);
+            navigate(`/CS4227-Software-Design-and-Architecture/message/${selectedUser.id}`);
         }
         handleMenuClose();
     };
 
     const handleEditUser = () => {
         if (selectedUser) {
-            navigate(`/CS4227-group-project/edit/${selectedUser.id}`, { state: { user: selectedUser } });
+            navigate(`/CS4227-Software-Design-and-Architecture/edit/${selectedUser.id}`, { state: { user: selectedUser } });
         }
         handleMenuClose();
     };
